@@ -73,6 +73,7 @@ module.exports = {
       },
       exposes: {
         "./HeaderWp": "./src/HeaderWp.jsx",
+        "./Dummy": "./src/Dummy.jsx",
       }
     }),
     new HtmlWebPackPlugin({
