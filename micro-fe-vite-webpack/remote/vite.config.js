@@ -6,16 +6,38 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: "remote_app",
+      name: "vite_host",
       filename: "remoteEntry.js",
+      remotes: {
+        wp_host: {
+          external: "http://localhost:8080/remoteEntry.js",
+          from: "url"
+        }
+      },
       exposes: {
         "./Button": "./src/Button",
         "./Header": "./src/Header",
         "./store": "./src/store",
       },
-      shared: ["react", "react-dom", "jotai"],
+      shared: {
+        react: {
+          singleton: true,
+          requiredVersion: "^18.2.0",
+        },
+        "react-dom": {
+          singleton: true,
+          requiredVersion: "^18.2.0",
+        },
+        jotai: {
+          singleton: true,
+        }
+      },      
     }),
   ],
+  server: {
+    port: 5173,
+    strictPort: true,
+  },
   build: {
     modulePreload: false,
     target: "esnext",

@@ -11,12 +11,15 @@ module.exports = {
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
-  },
+  },  
 
   devServer: {
     port: 8080,
     historyApiFallback: true,
     hot: false,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    }
   },
 
   module: {
@@ -60,12 +63,17 @@ module.exports = {
         react: {
           singleton: true,
           requiredVersion: deps.react,
+          eager: true,
         },
         "react-dom": {
           singleton: true,
           requiredVersion: deps["react-dom"],
+          eager: true,
         },
       },
+      exposes: {
+        "./HeaderWp": "./src/HeaderWp.jsx",
+      }
     }),
     new HtmlWebPackPlugin({
       template: "./index.ejs",
