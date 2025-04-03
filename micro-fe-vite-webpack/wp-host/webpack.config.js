@@ -6,7 +6,7 @@ const deps = require("./package.json").dependencies;
 module.exports = {
   output: {
     publicPath: "http://localhost:8080/",
-    module: true, // ✅ output format olarak module
+    module: true,
   },
 
   resolve: {
@@ -16,7 +16,7 @@ module.exports = {
   devServer: {
     port: 8080,
     historyApiFallback: true,
-    hot: false, // 🔥 HMR devre dışı!
+    hot: false,
   },
 
   module: {
@@ -44,20 +44,16 @@ module.exports = {
 
   target: "es2020",
   experiments: {
-    outputModule: true, // ✅ gereklilik
+    outputModule: true,
   },
 
   plugins: [
     new ModuleFederationPlugin({
       name: "wp_host",
-      library: { type: "module" }, // ✅ critical
+      library: { type: "module" },
       filename: "remoteEntry.js",
       remotes: {
         remote: "http://localhost:5001/assets/remoteEntry.js",
-      },
-      exposes: {
-        // buraya componentlerini yazabilirsin
-        // örn: "./Header": "./src/components/Header"
       },
       shared: {
         ...deps,
